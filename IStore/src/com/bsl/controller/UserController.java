@@ -1,14 +1,7 @@
 package com.bsl.controller;
 
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Random;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +17,6 @@ import com.bsl.constant.IConstant;
 import com.bsl.entity.User;
 import com.bsl.service.IUserService;
 import com.bsl.utils.CaptchaUtil;
-import com.bsl.utils.ImgCodeUtils;
 import com.bsl.utils.UUCodeUtils;
 import com.bsl.vo.Vo_user;
 
@@ -41,13 +33,20 @@ public class UserController {
 	private IUserService userService;
 	// 验证用户登录的方法
 	@RequestMapping(value = "/login")
-	public String login(Vo_user vr) {
+	public ModelAndView login(HttpServletRequest request,HttpServletResponse response,
+			HttpSession session,Vo_user vr) {
 		User user = new User(vr.getUsername(),vr.getPassword());
-		String str=null;
+		ModelAndView mv = new ModelAndView();
 		if (userService.checklogin(user)) {
-			str="success";
+			session.setAttribute("userexist", vr.getUsername());
+			mv.addObject("userexist", vr.getUsername());
+			mv.setViewName("index");
+		}else {
+			session.setAttribute("userexist", null);
+			mv.addObject("userexist", null);
+			mv.setViewName("login_error");
 		}
-		return str;
+		return mv;
 	}
 	
 	//跳转至注册页面
@@ -55,26 +54,36 @@ public class UserController {
 	public String registUI(){
 		return "register";
 	}
-	//跳转至注册页面
+	//跳转至登录页面
 	@RequestMapping(value="/loginUI")
 	public String loginUI(){
 		return "login";
 	}
+	//处理用户退出的请求页面
+	@RequestMapping(value="/quit")
+	public ModelAndView quit(HttpServletRequest request,HttpServletResponse response ,
+			HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		session.invalidate();
+		mv.addObject("userexist", null);
+		mv.setViewName("index");
+		return mv;
+	}
 	
 	//用户注册页面，注册成功后，显示信息,邮箱激活的功能暂未实现
-	@RequestMapping(value="/regist")
+	@RequestMapping(value="/regist") 
 	public ModelAndView register(HttpServletRequest request,HttpServletResponse response,
 			HttpSession session,Vo_user vr) {
 		ModelAndView mv = new ModelAndView();
 		String imgcode = (String) session.getAttribute("randomString");
 		if ("" == vr.getUsername().trim() || "" == vr.getRepassword()
 				|| "" == vr.getEmail().trim() || "" ==vr.getCheckcode().trim() || !(imgcode.equals(vr.getCheckcode()))) {
-			mv.addObject("usermsg", "很抱歉，您输入的信息不完整，无法注册成功，请重新输入");
+			mv.addObject("usermsg", "很抱歉，您输入的信息不完整，无法注册成功，<a href=\"<%=request.getContextPath() %>/user/registUI\">点此重新注册！</a>");
 			mv.setViewName("usermsg");
 		}else{
 			User user = pushUser(vr);
 			userService.add(user);
-			mv.addObject("usermsg", "恭喜您注册成功！");
+			mv.addObject("usermsg", "恭喜您注册成功！激活码为："+user.getCode());
 			mv.setViewName("usermsg");
 		}
 		
