@@ -17,6 +17,19 @@ public class Category {
 	
 	@Id@Column(name="c_id",nullable=false)
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private String id;
+	private Long id;
+	
+	@Column(name="c_name")
 	private String name;
+
+	//无参的构造函数
+	public Category() {
+	}
+
+	//根据id的构造函数
+	public Category(Long id) {
+		this.id = id;
+	}
+	
+	
 }

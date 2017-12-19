@@ -14,17 +14,21 @@ import com.bsl.entity.Category;
 import com.bsl.service.ICategoryService;
 
 @Controller
-@RequestMapping(value="/category")
+@RequestMapping(value = "/category")
 public class CategoryController {
-	
+
 	@Autowired
 	private ICategoryService categoryService;
-	
-	@RequestMapping(value="findall")
+
+	@RequestMapping(value = "/findall")
 	@ResponseBody
-	public List<Category> findAll(HttpServletRequest request,HttpServletResponse response
-			){
+	public List<Category> findAll(HttpServletRequest request, HttpServletResponse response) {
 		List<Category> list = categoryService.findAll(Category.class);
+		
+		for (Category category : list) {
+			System.out.println(category.getId()+category.getName());
+		}
+		System.out.println("------");
 		return list;
 	}
 }

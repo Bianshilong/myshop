@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js">
+</script>
 <div class="container header">
 	<div class="span5">
 		<div class="logo">
@@ -59,8 +61,9 @@
 		<ul class="mainNav">
 			<li><a href="${ pageContext.request.contextPath }/index">首页</a>
 				|</li>
+			<span id= "selectAll"></span>
 			<!-- 获取查询到的商品信息返回 -->
-			<%-- <%-- <s:iterator var="c" value="#session.cList">
+			<%-- <s:iterator var="c" value="#session.cList">
 			<li><a href="${ pageContext.request.contextPath }/product_findByCid.action?cid=<s:property value="#c.cid"/>&page=1"><s:property value="#c.cname"/></a> |</li>
 		</s:iterator> --%>
 
@@ -68,3 +71,31 @@
 		</ul>
 	</div>
 </div>
+<script>
+	$(function() {
+		$.ajax({
+			type: "Post",
+			contentType:"application/json",
+			url:"/IStore/category/findall",
+			processData:false,
+			dataType:"json",
+			data:"{}",
+			success: function(data) {
+				append2Dom(data);
+			}
+		})
+	})
+	function append2Dom(list) {
+		/* if (isNull(list)) {
+			return
+		}else { */
+			var item = "";
+			for (var i = 0; i < list.length; i++) {
+				var temp = "<li><a>"+list[i].name+"</a> |</li>";
+				item = item+temp;
+			}
+			$('#selectAll').empty();
+			$('#selectAll').append(item);
+		/* } */
+	}
+</script>
