@@ -43,8 +43,8 @@ public class Product {
 	private String description;
 	
 	private String time;
-	private Boolean hot;
-	private Boolean flag;
+	private Byte hot;
+	private Byte flag;
 	
 	@ManyToOne(targetEntity=Category.class)
 	@JoinColumn(name="c_id",referencedColumnName="c_id",nullable=false)

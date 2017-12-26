@@ -17,12 +17,17 @@ public interface IConstant {
 	int PRODUCT_IS_HOT = 1;
 	
 	/**
+	 * 非热门商品
+	 */
+	int PRODUCT_IS_NOT_HOT = 0;
+	
+	/**
 	 * 商品未下架
 	 */
-	int PRODUCT_IS_UP = 0;
+	int PRODUCT_IS_UP = 1;
 	
 	/**
 	 * 商品已下架
 	 */
-	int PRODUCT_IS_DOWN = 1;
+	int PRODUCT_IS_DOWN = 0;
 }
