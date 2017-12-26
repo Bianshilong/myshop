@@ -30,6 +30,7 @@
 				<!-- 以下用来列出Hibernate的持久化类 -->
 				<value>com.bsl.entity.User</value>
 				<value>com.bsl.entity.Category</value>
+				<value>com.bsl.entity.Product</value>
 			</list>
 		</property>
 		<!-- 定义Hibernate的SessionFactory的属性 -->

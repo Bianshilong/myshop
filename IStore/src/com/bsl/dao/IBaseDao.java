@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IBaseDao<T> {
 
-	//根据ID加载实体
+		//根据ID加载实体
 		T get(Class<T> entityClazz,Long id);
 		
 		//保存实体
