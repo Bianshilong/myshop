@@ -2,10 +2,13 @@ package com.bsl.dao.impl;
 
 import java.util.List;
 
-import com.bsl.dao.IProduct;
+import org.springframework.stereotype.Repository;
+
+import com.bsl.dao.IProductDao;
 import com.bsl.entity.Product;
 
-public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProduct {
+@Repository
+public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao {
 
 	@Override		//根据是否是热门商品来查询商品列表
 	public List<Product> findByHot(Byte hot) {

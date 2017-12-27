@@ -31,6 +31,7 @@
 				<value>com.bsl.entity.User</value>
 				<value>com.bsl.entity.Category</value>
 				<value>com.bsl.entity.Product</value>
+				<value>com.bsl.entity.Admin</value>
 			</list>
 		</property>
 		<!-- 定义Hibernate的SessionFactory的属性 -->

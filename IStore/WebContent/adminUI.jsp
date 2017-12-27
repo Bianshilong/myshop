@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>购物网站</title>
-<link rel="short cut icon" href="/IStore/favicon.ico" />
+<title>后台管理系统</title>
 </head>
 <body>
-	<!-- 跳转至index方法中，查询所有商品的信息 -->
-	<jsp:forward page="/index"></jsp:forward>
+	<jsp:forward page="/admin/loginUI"></jsp:forward>
 </body>
 </html>

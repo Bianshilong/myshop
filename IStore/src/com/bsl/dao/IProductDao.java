@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.bsl.entity.Product;
 
-public interface IProduct extends IBaseDao<Product> {
+public interface IProductDao extends IBaseDao<Product> {
 	
 	//通过是否热门搜索商品
 	List<Product> findByHot(Byte hot);

@@ -10,13 +10,13 @@ public interface IProductService {
 	void add(Product product);
 	
 	//删除商品,通过id来删除商品
-	void deleteById(Long id);
+	void deleteById(Product product, Long id);
 	
 	//更新商品
 	void update(Product product);
 	
 	//查找所有商品
-	List<Product> getAll();
+	List<Product> getAll(Product product);
 	
 	//根据热门查询商品
 	List<Product> getByHot(Byte hot);
