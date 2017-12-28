@@ -40,4 +40,10 @@ public class AdminController {
 		}
 		return str;
 	}
+	
+	@RequestMapping("/manage")
+	public String getManage() {
+		return "admin/manage";
+	}
+	
 }
